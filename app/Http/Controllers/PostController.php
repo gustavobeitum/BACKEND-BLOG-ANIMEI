@@ -54,6 +54,8 @@ class PostController extends Controller
             'type' => $request->type
         ]);
 
+        $post->load('user');
+
         return response()->json(['message' => 'Postagem criada', 'status' => 201,'data' => $post], Response::HTTP_CREATED);
     }
     /**
