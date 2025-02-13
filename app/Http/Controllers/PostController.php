@@ -143,7 +143,7 @@ class PostController extends Controller
         return response()->json(['message' => 'Você não tem permissão para realizar esta ação', 'status' => '403'], Response::HTTP_FORBIDDEN);
     }
     
-
+    //Retornar todos os comentários da publicação
     public function comments_post($post_id)
     {
         // Busca os comentários do post especificado

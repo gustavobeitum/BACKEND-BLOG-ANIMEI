@@ -140,4 +140,13 @@ class UserController extends Controller
         }
         return response()->json(['message' => 'Você não possui permissão para deletar este usuário', 'status' => 403], Response::HTTP_FORBIDDEN);
     }
+
+    //Função para mostrar o próprio perfil do usuário logado.
+    public function display_user_profile(Request $request){
+        $user = User::find($request->user()->id);
+        if (!$user) {
+            return response()->json(['message' => 'Erro ao encontrar usuário', 'status' => 204],Response::HTTP_NO_CONTENT);
+        }
+        return response()->json(['message' => 'Usuário encontrado', 'status' => 200, 'data' => $user], Response::HTTP_OK);
+   }
 }

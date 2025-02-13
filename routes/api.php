@@ -55,6 +55,7 @@ Route::middleware('auth:sanctum')->group(function(){
     });
 
     Route::put('/user/{user_id}', [UserController::class, 'update']);
+    Route::get('/user', [UserController::class, 'display_user_profile']);
 
     Route::delete('/logout', [AuthenticatedSessionController::class, 'destroy']);
 
@@ -81,7 +82,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('/answer/{answer_id}', [AnswerController::class, 'show']);
 });
 
-Route::get('/user', [UserController::class, 'index']);
+Route::get('/users', [UserController::class, 'index']);
 Route::get('/user/{user_id}', [UserController::class, 'show']);
 Route::post('/user', [UserController::class, 'store']);
 
