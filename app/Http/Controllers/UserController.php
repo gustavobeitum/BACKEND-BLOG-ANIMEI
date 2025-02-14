@@ -88,7 +88,8 @@ class UserController extends Controller
             //Se passar uma nova imagem, apaga a antiga e coloca a nova
             if ($request->hasFile('image')) {
                 if ($user->image) {
-                    Storage::disk('public')->delete($user->image);
+                    $imagePath = str_replace('storage/', '', $user->image);
+                    Storage::disk('public')->delete($imagePath);
                 }
                 $image = $request->file('image');
                 $image_url = $image->store('images', 'public');
@@ -100,7 +101,7 @@ class UserController extends Controller
                 'username' => $request->username ?: $user->username,
                 'name' => $request->name ?: $user->name,
                 'surname' => $request->surname ?: $user->surname,
-                'image' => $image_url,
+                'image' => "storage/".$image_url,
                 'email' => $request->email ?: $user->email,
             ]);
             
@@ -125,7 +126,8 @@ class UserController extends Controller
         if ($user->id == $request->user()->id) {
             //Deleta a imagem do usuário no storage/public caso exista
             if ($user->image) {
-                Storage::disk('public')->delete($user->image);
+                $imagePath = str_replace('storage/', '', $user->image);
+                Storage::disk('public')->delete($imagePath);
             }
             $user->posts()->delete();
             $user->comments()->delete();
