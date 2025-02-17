@@ -100,7 +100,7 @@ class PostController extends Controller
                 Storage::disk('public')->delete($imagePath);
             }
             $image = $request->file('image');
-            $images_url = $image->store('images_post', 'public');
+            $images_url = "storage/".$image->store('images_post', 'public');
         } else {
             $images_url = $post->image;
         }
@@ -108,7 +108,7 @@ class PostController extends Controller
         if ($request->user()->id == $post->user_id) {
             $post->update([
                 'text' => $request->text ?: $post->text,
-                'image' => "storage/".$images_url
+                'image' => $images_url
             ]);
             $post->save();
 

@@ -92,7 +92,7 @@ class UserController extends Controller
                     Storage::disk('public')->delete($imagePath);
                 }
                 $image = $request->file('image');
-                $image_url = $image->store('images', 'public');
+                $image_url = "storage/".$image->store('images', 'public');
             } else {
                 $image_url = $user->image;
             };
@@ -101,7 +101,7 @@ class UserController extends Controller
                 'username' => $request->username ?: $user->username,
                 'name' => $request->name ?: $user->name,
                 'surname' => $request->surname ?: $user->surname,
-                'image' => "storage/".$image_url,
+                'image' => $image_url,
                 'email' => $request->email ?: $user->email,
             ]);
             
