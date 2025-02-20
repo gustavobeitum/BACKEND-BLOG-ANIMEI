@@ -89,3 +89,4 @@ Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);
 Route::post('/reset-code-of-password', [NewPasswordController::class, 'check_code_password']);
 Route::post('/reset-password', [NewPasswordController::class, 'newpassword']);
 
+//teste 
