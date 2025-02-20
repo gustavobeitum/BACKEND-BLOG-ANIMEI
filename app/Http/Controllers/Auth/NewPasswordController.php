@@ -14,19 +14,21 @@ class NewPasswordController extends Controller
     public function check_code_password(Request $request)
     {
         $request->validate([
+            'email' => ['required', 'email', 'exists:users,email'],
             'code' => ['required','numeric']
         ]);
 
-        $user = $request->user();
+        $email = $request->email;
         $code = $request->code;
 
         // Verifica o código no cache
-        $cachedCode = Cache::get("password_reset_code_{$user->email}");
+        $cachedCode = Cache::get("password_reset_code_{$email}");
         if (!$cachedCode || $cachedCode != $code) {
             return response()->json(['message' => 'Código inválido ou expirado', 'status' =>400], Response::HTTP_BAD_REQUEST);
         } 
         return response()->json(['message' => 'Código válido']);
     }
+    
 
     public function newpassword(Request $request){
         $request->validate([

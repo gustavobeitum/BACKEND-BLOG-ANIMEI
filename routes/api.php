@@ -59,9 +59,6 @@ Route::middleware('auth:sanctum')->group(function(){
 
     Route::delete('/logout', [AuthenticatedSessionController::class, 'destroy']);
 
-    Route::post('/reset-code-of-password', [NewPasswordController::class, 'check_code_password']);
-    Route::post('/reset-password', [NewPasswordController::class, 'newpassword']);
-
     Route::post('/request-code-email', [EmailVerificationWithCodeController::class, 'request_code_email']);
     Route::post('/verification-code-email', [EmailVerificatedController::class, 'verification_email']);
 
@@ -87,4 +84,8 @@ Route::get('/user/{user_id}', [UserController::class, 'show']);
 Route::post('/user', [UserController::class, 'store']);
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);
+Route::post('/reset-code-of-password', [NewPasswordController::class, 'check_code_password']);
+Route::post('/reset-password', [NewPasswordController::class, 'newpassword']);
+
