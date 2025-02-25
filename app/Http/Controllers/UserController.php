@@ -129,7 +129,14 @@ class UserController extends Controller
                 $imagePath = str_replace('storage/', '', $user->image);
                 Storage::disk('public')->delete($imagePath);
             }
-            $user->posts()->delete();
+
+            foreach ($user->posts as $post){
+                if ($post->image) {
+                    $postImagePath = str_replace('storage/', '', $post->image);
+                    Storage::disk('public')->delete($postImagePath);
+                }
+                $post->delete();
+            }
             $user->comments()->delete();
             $user->answers()->delete();
             $deleted = $user->delete();

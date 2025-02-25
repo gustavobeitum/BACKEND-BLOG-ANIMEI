@@ -42,7 +42,7 @@ class PostController extends Controller
         //Verifica se a imagem foi enviada, se não foi enviada salva como null o campo
         if ($request->hasFile('image')) {
             $images = $request->file('image');
-            $images_url = $images->store('images_post', 'public');
+            $images_url = "storage/".$images->store('images_post', 'public');
         } else {
             $images_url = null;
         }
@@ -50,7 +50,7 @@ class PostController extends Controller
         $post = Post::create([
             'user_id' => $request->user()->id,
             'text' => $request->text,
-            'image' => "storage/".$images_url,
+            'image' => $images_url,
             'type' => $request->type
         ]);
 
